@@ -172,21 +172,24 @@ void tagWords(std::vector<Word> & words)
     for(int i = 0; i < words.size(); ++i)
     {
         tagWord(words[i]);
+
+        if(words[i].hasTag(WORD_SET))
+        {
+            if(!words[i+1].isKeyWord() && !words[i+1].isValue())
+                words[i+1].addTag(WORD_VARNAME);
+            else
+                return;
+        }
     }
 }
 
 void tagWord(Word & w)
 {
-
-    for(std::string s : w.keywords)
+    if(w.isKeyWord())
     {
-        if(w.getString() == s)
-        {
-            w.addTag(WORD_KEYWORD);
-        }
+        w.addTag(WORD_KEYWORD);
     }
-
-    if(startsWithQuote(w.getString()) && endsWithQuote(w.getString()))
+    else if(w.isString())
     {
         w.addTag(WORD_VALUE);
         w.addTag(WORD_STRING);
@@ -202,13 +205,21 @@ void tagWord(Word & w)
     // }
     else if(w.isNumber())
     {
+        w.addTag(WORD_VALUE);
         w.addTag(WORD_NUMBER);
         if(w.isInt())
             w.addTag(WORD_INT);
         else if(w.isFloat())
             w.addTag(WORD_FLOAT);
     }
+    //else if(!w.hasTag(WORD_KEYWORD))
+    else
+        w.addTag(WORD_USERDEF);
 
+    if(isupper(w.getString()[0]) && w.hasTag(WORD_USERDEF))
+    {
+        w.addTag(WORD_CLASSNAME);
+    }
     //std::cout << "[" << w.getTags().size() << "]";
 }
 

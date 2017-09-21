@@ -3,7 +3,7 @@
 
 #include "Word.h"
 
-std::string Word::keywords[31] = {
+std::string Word::keywords[50] = {
     "write",
     "say",
     "is",
@@ -13,7 +13,7 @@ std::string Word::keywords[31] = {
     "set",
     "has",
     "a",
-    // prepend 's
+    // append 's
     "from",
     "in",
     "given",
@@ -34,11 +34,56 @@ std::string Word::keywords[31] = {
     "return",
     "and",
     "int",
-    "ints"
+    "ints",
+    "where",
+    "then"
 };
+
+bool Word::isValue()
+{
+    if(hasTag(WORD_VALUE))
+        return true;
+    if(isNumber() || isString() || isBool())
+        return true;
+    return false;
+}
+
+bool Word::isBool()
+{
+    if(hasTag(WORD_BOOL))
+        return true;
+    if(stringValue == "true" || stringValue == "false")
+        return true;
+    return false;
+}
+
+bool Word::isString()
+{
+    if(hasTag(WORD_STRING))
+        return true;
+    if(startsWithQuote() && endsWithQuote())
+        return true;
+    return false;
+}
+
+bool Word::isKeyWord()
+{
+    if(hasTag(WORD_KEYWORD))
+        return true;
+    for(std::string key : keywords)
+    {
+        if(stringValue == key)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool Word::isNumber()
 {
+    if(hasTag(WORD_NUMBER))
+        return true;
     for(char c : stringValue)
     {
         if(c != '0' &&
@@ -62,6 +107,8 @@ bool Word::isNumber()
 
 bool Word::isInt()
 {
+    if(hasTag(WORD_INT))
+        return true;
     if(!isNumber())
         return false;
     for(char c : stringValue)
@@ -74,6 +121,8 @@ bool Word::isInt()
 
 bool Word::isFloat()
 {
+    if(hasTag(WORD_FLOAT))
+        return true;
     if(!isNumber())
         return false;
     for(char c : stringValue)
@@ -82,6 +131,30 @@ bool Word::isFloat()
             return true;
     }
     return false;
+}
+
+bool Word::startsWithQuote()
+{
+    if(stringValue[0] == '"')
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Word::endsWithQuote()
+{
+    int length = strlen(stringValue.c_str());
+    if(stringValue[length-1] == '"')
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Word::hasTag(int t)
+{
+    return find(tags.begin(), tags.end(), t) != tags.end();
 }
 
 #endif

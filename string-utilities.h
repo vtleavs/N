@@ -5,6 +5,8 @@
 #include <vector>
 #include <cstring>
 #include <iostream>
+#include <ctype.h>
+
 #include "Word.h"
 #include "interpreter.h"
 
