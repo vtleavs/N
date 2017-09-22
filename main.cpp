@@ -15,6 +15,11 @@ int main(int argc, char const *argv[])
     //if(!validInFile(argv[1]))
     //{
         //std::cout << "No File Loaded:  Filename Invalid\n";
+        initialzeFiles();
+
+        Instruction ins("#include <string>");
+        writeToIncludes(ins);
+
         std::cout << "Running Single Line Interpreter:\n\n";
 
         std::string sentence = "";

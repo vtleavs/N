@@ -38,4 +38,28 @@ bool validOutFile(std::string filename)
         && filename[length-4] == '.';
 }
 
+void initialzeFiles()
+{
+    std::ofstream includeFile;
+    includeFile.open("GeneratedCodeFiles/includes.h", std::ios_base::out);
+    includeFile << "#ifndef _INCLUDES_H_\n#define _INCLUDES_H_\n\n";
+    includeFile << "#endif";
+    includeFile.close();
+
+    std::ofstream mainFile;
+    mainFile.open("GeneratedCodeFiles/main.cpp");
+    mainFile << "#include \"includes.h\"";
+    mainFile.close();
+}
+
+void writeToIncludes(Instruction include)
+{
+    std::ofstream includeFile;
+    includeFile.open("GeneratedCodeFiles/includes.h", std::ios_base::app);
+    long pos = includeFile.tellp();
+    includeFile.seekp(pos - 6);
+    includeFile << include.getString() << "\n";
+    includeFile.close();
+}
+
 #endif
