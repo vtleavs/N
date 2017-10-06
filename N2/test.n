@@ -1,0 +1,9 @@
+let x be 7.
+
+if x is 7 then p is 5,
+else if x is 6 then p is 4,
+otherwise p should be 7.
+
+write p.
+
+write "Hello There".
