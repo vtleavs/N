@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <windows.h>
+//#include <windows.h>
 
 #include "string-utilities.h"
 #include "file-utilities.h"
@@ -11,14 +11,14 @@
 
 int main(int argc, char const *argv[])
 {
-    //for(int i = 0; i < 1; ++i)
-    //if(!validInFile(argv[1]))
-    //{
-        //std::cout << "No File Loaded:  Filename Invalid\n";
+    if(argc == 2 && validInFile(argv[1]))
+    {
+        std::cout << "Compiling " << argv[1] << std::endl;
         initialzeFiles();
-
-        Instruction ins("#include <string>");
-        writeToIncludes(ins);
+    }
+    else
+    {
+        std::cout << "No File Loaded:  Filename Invalid\n";
 
         std::cout << "Running Single Line Interpreter:\n\n";
 
@@ -46,14 +46,14 @@ int main(int argc, char const *argv[])
             tagWords(vec);
             for(Word st : vec)
             {
-                if(st.hasTag(WORD_KEYWORD))
-                    SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x0B );
-                else if(st.hasTag(WORD_CLASSNAME))
-                    SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x02 );
-                else if(st.hasTag(WORD_USERDEF))
-                    SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x03 );
-                else if(st.hasTag(WORD_VALUE))
-                    SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x0C );
+                // if(st.hasTag(WORD_KEYWORD))
+                //     SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x0B );
+                // else if(st.hasTag(WORD_CLASSNAME))
+                //     SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x02 );
+                // else if(st.hasTag(WORD_USERDEF))
+                //     SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x03 );
+                // else if(st.hasTag(WORD_VALUE))
+                //     SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x0C );
 
                 std::cout << st.getString();
 #if 0
@@ -65,11 +65,12 @@ int main(int argc, char const *argv[])
                 std::cout << "]";
 #endif
                 std::cout << " ";
-                SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x0F );
+                //SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x0F );
             }
             std::cout << std::endl;
         }
 
-    //}
+    }
+
     return 0;
 }

@@ -5,7 +5,7 @@
 
 void Instruction::compile()
 {
-    compiledString = interpret(instructionString);
+    compiledString = interpret(instructionPhrase);
 }
 
 void Function::compile()
@@ -20,20 +20,20 @@ void Function::compile()
 
 void Function::writeHeader(std::string className)
 {
-    compiledString += functionType + className "::" + functionName + "("
-    for(for int i = 0; i < arguments.getSize()-1; ++i)
+    compiledString += functionType + className + "::" + functionName + "(";
+    for(int i = 0; i < arguments.size()-1; ++i)
         compiledString += arguments[i].getType() + " " + arguments[i].getName() + ",";
-    compiledString += arguments[arguments.getSize()].getType() + " "
-        + arguments[arguments.getSize()].getName() + "){\n";
+    compiledString += arguments[arguments.size()].getType() + " "
+        + arguments[arguments.size()].getName() + "){\n";
 }
 
 void Function::writeHeader()
 {
-    compiledString += functionType + functionName + "("
-    for(for int i = 0; i < arguments.getSize()-1; ++i)
+    compiledString += functionType + functionName + "(";
+    for(int i = 0; i < arguments.size()-1; ++i)
         compiledString += arguments[i].getType() + " " + arguments[i].getName() + ",";
-    compiledString += arguments[arguments.getSize()].getType() + " "
-        + arguments[arguments.getSize()].getName() + "){\n";
+    compiledString += arguments[arguments.size()].getType() + " "
+        + arguments[arguments.size()].getName() + "){\n";
 }
 
 void Class::compile()

@@ -1,6 +1,7 @@
 #ifndef _INTERPRETER_H_
 #define _INTERPRETER_H_
 
+#include <typeinfo>
 #include <string>
 #include "string-utilities.h"
 #include "Word.h"
@@ -39,7 +40,7 @@
 //     "ints"
 // };
 
-//void interpret(std::vector<std::string> sentence);
-//void write(std::vector<std::string> phrase, int indexOfKeyword);
+std::string interpret(std::vector<Word> phrase);
+std::string write(std::vector<Word> phrase, int indexOfKeyword);
 
 #endif

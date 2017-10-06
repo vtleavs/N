@@ -19,12 +19,7 @@ void initFile(std::string filename)
 
 bool validInFile(std::string filename)
 {
-
     int length = filename.length();
-    std::cout << filename[length-1] << std::endl;
-    std::cout << filename[length-2] << std::endl;
-
-
     return filename[length-1] == 'n'
         && filename[length-2] == '.';
 }
@@ -58,7 +53,8 @@ void writeToIncludes(Instruction include)
     includeFile.open("GeneratedCodeFiles/includes.h", std::ios_base::app);
     long pos = includeFile.tellp();
     includeFile.seekp(pos - 6);
-    includeFile << include.getString() << "\n";
+    include.compile();
+    includeFile << include.getCompiled() << "\n";
     includeFile.close();
 }
 
